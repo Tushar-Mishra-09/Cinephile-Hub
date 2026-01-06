@@ -1,16 +1,19 @@
 import React from 'react'
 import { Routes, Route, Link, Navigate } from 'react-router-dom'
-import { AppBar, Toolbar, Typography, Button, Container } from '@mui/material'
+import { AppBar, Toolbar, Typography, Button, Container, Stack } from '@mui/material'
 import Home from './pages/Home'
 import Search from './pages/Search'
+import MovieDetail from './pages/MovieDetail'
 import AddMovie from './pages/Admin/AddMovie'
 import EditMovie from './pages/Admin/EditMovie'
 import Login from './pages/Login'
 import ProtectedRoute from './routes/ProtectedRoute'
 import { useAuth } from './context/AuthContext'
+import { useAppBarExtras } from './context/AppBarExtrasContext'
 
 export default function App() {
   const { logout, isAuthenticated, user } = useAuth()
+  const { extras } = useAppBarExtras()
 
   return (
     <>
@@ -27,12 +30,16 @@ export default function App() {
           ) : (
             <Button color="inherit" onClick={logout}>Logout</Button>
           )}
+          <Stack direction="row" spacing={1} alignItems="center">
+            {extras}
+          </Stack>
         </Toolbar>
       </AppBar>
       <Container sx={{ mt: 3 }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/movie/:id" element={<MovieDetail />} />
           <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
           <Route path="/admin/add" element={<ProtectedRoute role="admin"><AddMovie /></ProtectedRoute>} />
           <Route path="/admin/edit/:id" element={<ProtectedRoute role="admin"><EditMovie /></ProtectedRoute>} />

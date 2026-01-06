@@ -5,6 +5,7 @@ import { ThemeProvider, createTheme, CssBaseline } from '@mui/material'
 import { orange, deepOrange } from '@mui/material/colors'
 import App from './App'
 import { AuthProvider } from './context/AuthContext'
+import { AppBarExtrasProvider } from './context/AppBarExtrasContext'
 
 const theme = createTheme({
   palette: {
@@ -24,7 +25,9 @@ createRoot(document.getElementById('root')).render(
       <CssBaseline />
       <BrowserRouter>
         <AuthProvider>
-          <App />
+          <AppBarExtrasProvider>
+            <App />
+          </AppBarExtrasProvider>
         </AuthProvider>
       </BrowserRouter>
     </ThemeProvider>

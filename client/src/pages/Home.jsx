@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, Pagination, Stack, FormControl, InputLabel, Select, MenuItem } from '@mui/material'
+import { Grid, Pagination, Stack, FormControl, InputLabel, Select, MenuItem, CardActionArea } from '@mui/material'
+import { Link as RouterLink } from 'react-router-dom'
 import { api } from '../services/api'
 import MovieCard from '../components/MovieCard'
 
@@ -44,7 +45,9 @@ export default function Home() {
       <Grid container spacing={2}>
         {movies.map((m) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={m._id}>
-            <MovieCard movie={m} />
+            <CardActionArea component={RouterLink} to={`/movie/${m._id}`}>
+              <MovieCard movie={m} />
+            </CardActionArea>
           </Grid>
         ))}
       </Grid>

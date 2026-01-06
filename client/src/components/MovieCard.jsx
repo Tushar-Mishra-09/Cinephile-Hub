@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardContent, CardMedia, Typography } from '@mui/material'
+import { Card, CardContent, CardMedia, Typography, Chip, Stack } from '@mui/material'
 
 export default function MovieCard({ movie }) {
   const poster = movie.posterUrl && movie.posterUrl !== 'N/A'
@@ -14,6 +14,19 @@ export default function MovieCard({ movie }) {
         <Typography variant="body2" color="text.secondary">
           Rating: {movie.rating ?? 'N/A'} | Duration: {movie.duration ?? 'N/A'} mins
         </Typography>
+        {movie.imdbId && (
+          <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+            <Chip
+              label="IMDb"
+              color="secondary"
+              component="a"
+              href={`https://www.imdb.com/title/${movie.imdbId}/`}
+              target="_blank"
+              rel="noopener noreferrer"
+              clickable
+            />
+          </Stack>
+        )}
         {movie.releaseDate && (
           <Typography variant="caption" color="text.secondary">
             Released: {new Date(movie.releaseDate).toLocaleDateString()}
